@@ -1,0 +1,35 @@
+.login-button-group {
+    border: 2px solid red;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    margin-left: 2.2%;
+    margin-top: 3%;
+}
+
+.hz-border {
+    height: 2px;
+    width: 16rem;
+    opacity: 50%;
+    background-color: gray;
+    margin-left: 2.5%;
+}
+
+.login-signup {
+    font-size: 20px;
+    font-family: 'Lato', sans-serif;
+    background-color: #f3a01f;  
+    color: #1c1c28;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    outline: none;
+    padding: 14px 28px;
+    border-radius: 5px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    width: 16rem;
+    /* margin-left: 22px; */
+}
