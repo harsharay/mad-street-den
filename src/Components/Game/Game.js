@@ -8,19 +8,30 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 import "./Game.css"
+import { Redirect } from "react-router-dom";
 
 const Game = () => {
 
     const [count, setCount] = useState(0)
     const [userResponses, setUserResponses] = useState([])
     const [gameDataLength, setGameDataLength] = useState(0)
-    // const [currentQuestion, setCurrentQuestion] = useState({})
     const [answeredQuestions, setAnsweredQuestions] = useState([])
     const [currentAnswer, setCurrentAnswer] = useState("")
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     toast.configure()
 
     useEffect(() => setGameDataLength(GameData.length),[])
+
+    useEffect(() => {
+        if(localStorage.getItem("username")) {
+            setIsLoggedIn(true)
+            console.log("Loggedin")
+        } else {
+            setIsLoggedIn(false)
+            console.log("Not logged in")
+        }
+    },[])
 
     useEffect(() => {
         let localAnswer = ""
@@ -82,45 +93,50 @@ const Game = () => {
                     userResponses
                 }]))
             }
+            toast.success("Succefully completed the game!")
         }
 
     }
 
-
-    return (
-        <div className="game-root">
-            <StyledHeader>This or That</StyledHeader>
-            <div className="game-question-number">
-                <p>{count+1}</p>
-            </div>
-            <div className="game-button-group">
-                <StyledThisThatButton 
-                    thisValue={true} 
-                    redBorder={(currentAnswer === GameData[count].thisText)}
-                    onClick={() => handleAddResponse(count, GameData[count].thisText)}
-                > 
-                    {GameData[count].thisText}
-                </StyledThisThatButton>
-
-                <StyledThisThatButton 
-                    thisValue={false}
-                    redBorder={(currentAnswer === GameData[count].thatText)} 
-                    onClick={() => handleAddResponse(count, GameData[count].thatText)}
-                >
-                    {GameData[count].thatText}
-                </StyledThisThatButton>
-            </div>
-
-            <div className="game-nav-buttons">
-                { count>0 && <StyledButton onClick={() => setCount(count-1)} title="previous Question" signin={true}>Prev</StyledButton> }
-                { count<gameDataLength-1 && <StyledButton onClick={() => setCount(count+1)} title="next Question" signin={false}>Next</StyledButton>}
-            </div>
-
-            <div>
-                {count === gameDataLength-1 && <StyledButton thisValue={false} className="finishGame-button" onClick={handleFinishGame}>Finish game</StyledButton>}
-            </div>
-        </div>
-    )
+        return (
+            <>
+                { isLoggedIn ? 
+                <div className="game-root">
+                    <StyledHeader>This or That</StyledHeader>
+                    <div className="game-question-number">
+                        <p>{count+1}</p>
+                    </div>
+                    <div className="game-button-group">
+                        <StyledThisThatButton 
+                            thisValue={true} 
+                            redBorder={(currentAnswer === GameData[count].thisText)}
+                            onClick={() => handleAddResponse(count, GameData[count].thisText)}
+                        > 
+                            {GameData[count].thisText}
+                        </StyledThisThatButton>
+        
+                        <StyledThisThatButton 
+                            thisValue={false}
+                            redBorder={(currentAnswer === GameData[count].thatText)} 
+                            onClick={() => handleAddResponse(count, GameData[count].thatText)}
+                        >
+                            {GameData[count].thatText}
+                        </StyledThisThatButton>
+                    </div>
+        
+                    <div className="game-nav-buttons">
+                        { count>0 && <StyledButton onClick={() => setCount(count-1)} title="previous Question" signin={true}>Prev</StyledButton> }
+                        { count<gameDataLength-1 && <StyledButton onClick={() => setCount(count+1)} title="next Question" signin={false}>Next</StyledButton>}
+                    </div>
+        
+                    <div>
+                        {count === gameDataLength-1 && <StyledButton thisValue={false} className="finishGame-button" onClick={handleFinishGame}>Finish game</StyledButton>}
+                    </div>
+                </div>
+                :
+                <p>Plesae login</p>}
+            </>
+        ) 
 }
 
 export default Game;

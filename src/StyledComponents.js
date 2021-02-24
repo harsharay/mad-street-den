@@ -35,8 +35,9 @@ export const StyledHeader = styled.p`
 export const StyledThisThatButton = styled.button`
     font-size: 20px;
     font-family: 'Lato', sans-serif;
-    background: ${props => props.thisValue ? "#0076cd" : "#f991c6"};  
-    color: ${props => props.thisValue ? "white" : "black"};
+    background: ${props => props.thisValue ? "#4141a5" : "#fd5056"};  
+    // color: ${props => props.thisValue ? "white" : "white"};
+    color: white;
     font-size: 32px;
     font-weight: 700;
     border: none;
@@ -48,4 +49,24 @@ export const StyledThisThatButton = styled.button`
     border: ${props => props.redBorder ? "5px solid #60af7d" : ""};
 `
 
+export const StyledSelectComponent = styled.select`
+    padding: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    border: 2px solid #f3a01f;
+    border-radius: 5px;
+    outline: none;
+    width: fit-content;
+`
+export const StyledNavSingleComponent = styled.a`
+    font-size: 22px;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    color: ${props => props.button ? "white" : "black"};;
+    background: ${props => props.button ? "black" : ""};
+    text-decoration: none;
+    padding: 2% 10%; 
+    border-radius: 5px;
+    cursor: pointer;
+`
  
