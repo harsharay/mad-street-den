@@ -134,7 +134,7 @@ const GameResults = (props) => {
                                         return (
                                             <React.Fragment key={index}>
                                                 <div className="singleUserResult" key={index}>
-                                                    <p className={(secondUserData.userResponses[index].answer === item.answer) ? "highlightResult" : ""}>{item.answer}</p>
+                                                    <p className={(secondUserData.userResponses[index].answer === item.answer) ? "highlightResult" : "showDifference"}>{item.answer}</p>
                                                 </div>
                                                 <hr></hr>
                                             </React.Fragment>
@@ -148,7 +148,7 @@ const GameResults = (props) => {
                                         return (
                                             <React.Fragment key={index}>
                                                 <div className="singleUserResult" key={index}>
-                                                    <p className={(firstUserData.userResponses[index].answer === item.answer) ? "highlightResult" : ""}> {item.answer}</p>
+                                                    <p className={(firstUserData.userResponses[index].answer === item.answer) ? "highlightResult" : "showDifference"}> {item.answer}</p>
                                                 </div>
                                                 <hr></hr>
                                             </React.Fragment>

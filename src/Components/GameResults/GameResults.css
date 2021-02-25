@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: 'Lato', sans-serif;
 }
 
 .dropDown-heading {
@@ -44,10 +45,11 @@
 .singleUserResult p {
     font-size: 22px;
     font-weight: 600;
-    font-family: 'Lato', sans-serif;
+    /* font-family: 'Lato', sans-serif; */
     padding: 0.8rem;
     width: 15rem;
     height: 2rem;
+    letter-spacing: 0.5px;
 }
 
 .highlightResult {
@@ -57,10 +59,22 @@
     border-radius: 7px;
 }
 
+.showDifference {
+    color: gray;
+    opacity: 60%;
+}
+
 .compatibility-score {
     position: relative;
     bottom: 65rem;
+    font-size: 18px;
     /* left: 46%; */
+    /* border: 2px solid red; */
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .compatibility-content {
@@ -74,9 +88,9 @@
     justify-content: center;
     align-items: center;
 
-    margin-left: 15%;
+    /* margin-left: 15%; */
     
     font-size: 48px;
     font-weight: 900;
-    font-family: 'Lato', sans-serif;
+    /* font-family: 'Lato', sans-serif; */
 }
