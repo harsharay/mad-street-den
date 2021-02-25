@@ -14,15 +14,15 @@ export const StyledButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   letter-spacing: 0.5px;
-//   width: 25.5%;
+  opacity: ${props => props.fullOpacity ? "" : "50%"}
 `
 
 export const StyledInput = styled.input`
     border: ${(props) => props.passwordMismatch ? "2px solid red" : "2px solid gray"};
-    padding: 6%;
+    padding: 16px;
     outline: none;
     border-radius: 5px;
-    font-size: 18px
+    font-size: 18px;
 `
 
 export const StyledHeader = styled.p`

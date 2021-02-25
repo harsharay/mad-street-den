@@ -7,7 +7,7 @@ import { HiChevronDoubleRight } from "react-icons/hi"
 import "./Signup.css"
 import { Link } from "react-router-dom";
 
-const Signup = () => {
+const Signup = (props) => {
 
     const [inputData, setInputData] = useState({
         username: "",
@@ -46,18 +46,25 @@ const Signup = () => {
 
         if(username.length > 0 && password.length > 0) {
             if(repeatPassword !== password) {
-                toast.error("Passwords did not match")
+                toast.error("Passwords did not match",{
+                    autoClose: 3000
+                })
             } else {
 
                 if(localStorage.getItem("users-info")) {
                     let userInfoFromStorage = JSON.parse(localStorage.getItem("users-info"))
 
                     if(userInfoFromStorage[inputData.username]) {
-                        toast.error("Username not available")
+                        toast.error("Username not available",{
+                            autoClose: 3000
+                        })
                     } else {
                         userInfoFromStorage[inputData.username] = inputData.password
                         localStorage.setItem("users-info", JSON.stringify(userInfoFromStorage))
-                        toast.success("Successfully signed up")
+                        toast.success("Successfully signed up",{
+                            autoClose: 2000
+                        })
+                        props.history.push("/")
                     }
                 } else {
                     let setDataToStorage = JSON.stringify({
@@ -65,7 +72,10 @@ const Signup = () => {
                     })
 
                     localStorage.setItem("users-info", setDataToStorage)
-                    toast.success("Successfully signed up")
+                    toast.success("Successfully signed up",{
+                        autoClose: 2000
+                    })
+                    props.history.push("/")
                 }
             }
         }
@@ -87,8 +97,9 @@ const Signup = () => {
                     <p>Enter password, again</p>
                     <StyledInput type="password" onChange={handleInputChange} name="repeatPassword" value={inputData.repeatPassword} passwordMismatch={passwordMismatch}/>
                 </div>
-                <StyledButton onClick={handleSignup} signin={false}>Sign up</StyledButton>
-                <Link to="/" className="signup-link">Login<span><HiChevronDoubleRight /></span></Link>
+                <StyledButton onClick={handleSignup} signin={false} fullOpacity={true}>Sign up</StyledButton>
+                <div className="hz-border"></div>
+                <StyledButton onClick={() => props.history.push("/")} signin={true} fullOpacity={true}>Login</StyledButton>
             </div>
         </div>
     )

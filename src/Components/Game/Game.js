@@ -68,7 +68,9 @@ const Game = (props) => {
                 ]     
             })
         } else {
-            toast.error("Already answered")
+            toast.error("Already answered",{
+                autoClose: 2000
+            })
         }
     }
 
@@ -107,9 +109,11 @@ const Game = (props) => {
                     userResponses
                 }]))
             }
-            toast.success("Succefully completed the game!")
+            toast.success("Succefully completed the game!",{
+                autoClose: 2000
+            })
             toast.success("Check your results and compare",{
-                autoClose: false
+                autoClose: 5000,
             })
             setSubmitted(true)
         }
@@ -146,8 +150,8 @@ const Game = (props) => {
                     </div>
         
                     <div className="game-nav-buttons">
-                        { count>0 && <StyledButton onClick={() => setCount(count-1)} title="previous Question" signin={true}>Prev</StyledButton> }
-                        { count<gameDataLength-1 && <StyledButton onClick={() => setCount(count+1)} title="next Question" signin={false}>Next</StyledButton>}
+                        { count>0 && <StyledButton onClick={() => setCount(count-1)} title="previous Question" signin={true} fullOpacity={true}>Prev</StyledButton> }
+                        { count<gameDataLength-1 && <StyledButton onClick={() => setCount(count+1)} title="next Question" signin={false} fullOpacity={true}>Next</StyledButton>}
                     </div>
                     
                     <div className="allQuestionNumbers">
@@ -161,7 +165,7 @@ const Game = (props) => {
                     </div>
 
                     <div>
-                        {(!submitted) && <StyledButton thisValue={false} className="finishGame-button" onClick={handleFinishGame}>Finish game</StyledButton>}
+                        {(!submitted) && <StyledButton thisValue={false} className="finishGame-button" onClick={handleFinishGame} fullOpacity={answeredQuestions.length === 10}>Finish game</StyledButton>}
                     </div>
                 </div>
                 :

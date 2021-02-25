@@ -1,6 +1,5 @@
 import React,{ useState, useEffect } from "react"
 import { connect } from "react-redux"
-import { Redirect } from "react-router-dom"
 import { StyledButton, StyledHeader, StyledLoginMessage, StyledSelectComponent } from "../../StyledComponents"
 
 import "./GameResults.css"
@@ -106,7 +105,8 @@ const GameResults = (props) => {
                 <StyledHeader>Compare the results</StyledHeader>
                 <div className="results-block">
                     { allUserResults.length > 0 ?  
-                        <>
+                        <>  
+                            <p className="dropDown-heading">Select from the dropdown</p>
                             <div className="results-content">
                                 <StyledSelectComponent onChange={handleDropdownChange} name="firstUser" value={selectUsers.firstUser}>
                                     { allUserResults.map((item,index) => {
@@ -123,7 +123,7 @@ const GameResults = (props) => {
                                         )
                                     }) }
                                 </StyledSelectComponent>
-                                <StyledButton signin={true} className="results-go-button" onClick={handleViewComparision}>Go</StyledButton>
+                                <StyledButton signin={true} className="results-go-button" onClick={handleViewComparision} fullOpacity={true}>Go</StyledButton>
                             </div>
                         <>
                             { (Object.keys(firstUserData).length > 0 && Object.keys(secondUserData).length > 0) &&

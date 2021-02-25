@@ -41,16 +41,24 @@ const Login = (props) => {
                     if(allUserDataFromStorage[username] === password) {
                         props.signingIn(username)
                         localStorage.setItem("username", username)
-                        toast.success("Login successfull")
+                        toast.success("Login successfull",{
+                            autoClose: 2000 
+                        })
                         props.history.push("/game")
                     } else {
-                        toast.error("Username/password incorrect")
+                        toast.error("Username/password incorrect",{
+                            autoClose: 3000
+                        })
                     }
                 } else {
-                    toast.error("Username not found, please sign up")
+                    toast.error("Username not found, please sign up",{
+                        autoClose: 3000
+                    })
                 }
             } else {
-                toast.error("Username not found, please sign up")
+                toast.error("Username not found, please sign up",{
+                    autoClose: 3000
+                })
             }
         }    
     }
@@ -70,11 +78,11 @@ const Login = (props) => {
                 </div>
                 
                 {/* <div className="login-button-group"> */}
-                    <StyledButton onClick={handleLogin} signin={true}>Login</StyledButton>
+                    <StyledButton onClick={handleLogin} signin={true} fullOpacity={true}>Login</StyledButton>
                     <div className="hz-border">
 
                     </div>
-                    <StyledButton onClick={() => props.history.push("/signup")} signin={false}>Sign up</StyledButton>
+                    <StyledButton onClick={() => props.history.push("/signup")} signin={false} fullOpacity={true}>Sign up</StyledButton>
                 {/* </div> */}
             </div>
         </div>
