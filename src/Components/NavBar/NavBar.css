@@ -12,9 +12,8 @@
 
 .nav-content {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     width: 30rem;
-    /* position: relative; */
-    /* font-size: 22px; */
+    margin-right: 6%;
 }

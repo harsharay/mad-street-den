@@ -9,23 +9,20 @@ const NavBar = (props) => {
 
     const history = useHistory()
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [username, setUsername] = useState()
 
     useEffect(() => {
-        // let user = localStorage.getItem("username")
-
-        // if(user) {
-        //     setIsLoggedIn(true)
-        // }
-        // console.log(19, props)
         const loginCheck = props.usernameProp || localStorage.getItem("username")
         console.log(21, loginCheck)
 
         if(loginCheck) {
             setIsLoggedIn(true)
             console.log("Loggedin")
+            setUsername(loginCheck)
         } else {
             setIsLoggedIn(false)
             console.log("Not logged in")
+            setUsername("")
         }
     },[props])
 
@@ -50,6 +47,7 @@ const NavBar = (props) => {
     return (
         <div className="nav-root">
             <div className="nav-content">
+                { username && <StyledNavSingleComponent className="username-nav">Hi, {username}</StyledNavSingleComponent> }
                 <StyledNavSingleComponent button={false} name="game" onClick={handleLinkClick}>Game</StyledNavSingleComponent>
                 <StyledNavSingleComponent button={false} name="results" onClick={handleLinkClick}>Results</StyledNavSingleComponent>
                 { isLoggedIn ? 
