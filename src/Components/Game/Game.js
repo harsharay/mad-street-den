@@ -82,7 +82,7 @@ const Game = (props) => {
                     unansweredQuestions.push(i+1)
                 }
             }
-            toast.warning(`Did not answer the following questions: ${unansweredQuestions.toString()}`)
+            toast.error(`Did not answer the following questions: ${unansweredQuestions.toString()}`)
         } else {
             let user = localStorage.getItem("username")
 
