@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react"
-import { StyledHeader, StyledButton, StyledThisThatButton } from "../../StyledComponents"
+import { StyledHeader, StyledButton, StyledThisThatButton, StyledLoginMessage, StyledNumberNavComponent } from "../../StyledComponents"
 import { GameData } from "../../GameData"
 // import { BsChevronRight } from "react-icons/bs"
 // import { BsChevronLeft } from "react-icons/bs"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { connect } from "react-redux"
 
 import "./Game.css"
 import { Redirect } from "react-router-dom";
 
-const Game = () => {
+const Game = (props) => {
 
     const [count, setCount] = useState(0)
     const [userResponses, setUserResponses] = useState([])
@@ -18,24 +18,27 @@ const Game = () => {
     const [answeredQuestions, setAnsweredQuestions] = useState([])
     const [currentAnswer, setCurrentAnswer] = useState("")
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [submitted, setSubmitted] = useState(false)
 
     toast.configure()
 
     useEffect(() => setGameDataLength(GameData.length),[])
 
     useEffect(() => {
-        if(localStorage.getItem("username")) {
+        console.log(27,props)
+        const loginCheck = props.usernameProp || localStorage.getItem("username")
+
+        if(loginCheck) {
             setIsLoggedIn(true)
             console.log("Loggedin")
         } else {
             setIsLoggedIn(false)
             console.log("Not logged in")
         }
-    },[])
+    },[props])
 
     useEffect(() => {
         let localAnswer = ""
-        // console.log(27,userResponses)
 
         userResponses.forEach(item => {
             if(item.question === count) {
@@ -80,6 +83,17 @@ const Game = () => {
             toast.warning(`Did not answer the following questions: ${unansweredQuestions.toString()}`)
         } else {
             let user = localStorage.getItem("username")
+
+            const sortFunction = (a,b) => {
+                let key1 = parseInt(a.question)
+                let key2 = parseInt(b.question)
+
+                if(key1 < key2) return -1;
+                if(key2 < key1) return 1;
+                return 0
+            }
+            userResponses.sort(sortFunction)
+
             if(localStorage.getItem("allUsersGameResults")) {
                 let getAllResultsFromStorage = JSON.parse(localStorage.getItem("allUsersGameResults")) 
                 getAllResultsFromStorage.push({
@@ -94,8 +108,15 @@ const Game = () => {
                 }]))
             }
             toast.success("Succefully completed the game!")
+            toast.success("Check your results and compare",{
+                autoClose: false
+            })
+            setSubmitted(true)
         }
+    }
 
+    const handleQuestionNumberClick = (index) => {
+        setCount(index)
     }
 
         return (
@@ -128,15 +149,31 @@ const Game = () => {
                         { count>0 && <StyledButton onClick={() => setCount(count-1)} title="previous Question" signin={true}>Prev</StyledButton> }
                         { count<gameDataLength-1 && <StyledButton onClick={() => setCount(count+1)} title="next Question" signin={false}>Next</StyledButton>}
                     </div>
-        
+                    
+                    <div className="allQuestionNumbers">
+                        {GameData.map((item,index) => {
+                            return (
+                                <StyledNumberNavComponent key={index} onClick={() => handleQuestionNumberClick(index)} answered={answeredQuestions.includes(index)}>
+                                    <p>{index+1}</p>
+                                </StyledNumberNavComponent>
+                            )
+                        })}
+                    </div>
+
                     <div>
-                        {count === gameDataLength-1 && <StyledButton thisValue={false} className="finishGame-button" onClick={handleFinishGame}>Finish game</StyledButton>}
+                        {(!submitted) && <StyledButton thisValue={false} className="finishGame-button" onClick={handleFinishGame}>Finish game</StyledButton>}
                     </div>
                 </div>
                 :
-                <p>Plesae login</p>}
+                <StyledLoginMessage>Please login</StyledLoginMessage>}
             </>
         ) 
 }
 
-export default Game;
+const mapStateToProps = state => {
+    return {
+        usernameProp : state.username
+    }
+}
+
+export default connect(mapStateToProps, null)(Game);

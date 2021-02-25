@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { StyledHeader, StyledInput, StyledButton } from "../../StyledComponents"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { connect } from "react-redux"
 
 import "./Login.css"
 
@@ -11,6 +12,8 @@ const Login = (props) => {
         username: "",
         password: "",
     })
+
+    // useEffect(() => console.log(16,props),[])
 
 
     const handleInputChange = e => {
@@ -36,6 +39,7 @@ const Login = (props) => {
             if(allUserDataFromStorage) {
                 if(allUserDataFromStorage[username]) {
                     if(allUserDataFromStorage[username] === password) {
+                        props.signingIn(username)
                         localStorage.setItem("username", username)
                         toast.success("Login successfull")
                         props.history.push("/game")
@@ -77,4 +81,16 @@ const Login = (props) => {
     )
 }
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+        usernameProp: state.username
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        signingIn : username => dispatch({ type: "SIGNIN", payload: username })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

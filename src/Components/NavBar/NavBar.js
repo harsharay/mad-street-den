@@ -3,19 +3,31 @@ import { StyledNavSingleComponent } from "../../StyledComponents";
 import { useHistory } from "react-router-dom"
 
 import "./NavBar.css"
+import { connect } from "react-redux";
 
-const NavBar = () => {
+const NavBar = (props) => {
 
     const history = useHistory()
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     useEffect(() => {
-        let user = localStorage.getItem("username")
+        // let user = localStorage.getItem("username")
 
-        if(user) {
+        // if(user) {
+        //     setIsLoggedIn(true)
+        // }
+        // console.log(19, props)
+        const loginCheck = props.usernameProp || localStorage.getItem("username")
+        console.log(21, loginCheck)
+
+        if(loginCheck) {
             setIsLoggedIn(true)
+            console.log("Loggedin")
+        } else {
+            setIsLoggedIn(false)
+            console.log("Not logged in")
         }
-    },[])
+    },[props])
 
     const handleLinkClick = e => {
         let name = e.target.name
@@ -29,6 +41,7 @@ const NavBar = () => {
     }
 
     const handleLogout = () => {
+        props.signingOut()
         localStorage.setItem("username", "")
         history.push("/")
         setIsLoggedIn(false)
@@ -49,4 +62,16 @@ const NavBar = () => {
     )
 }
 
-export default NavBar;
+const mapStateToProps = state => {
+    return {
+        usernameProp : state.username
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        signingOut: () => dispatch({ type: "LOGOUT", payload: "" })
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(NavBar);

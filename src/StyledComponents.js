@@ -69,4 +69,26 @@ export const StyledNavSingleComponent = styled.a`
     border-radius: 5px;
     cursor: pointer;
 `
+
+export const StyledLoginMessage = styled.p`
+    font-size: 32px;
+    font-weight: 800;
+    font-family: 'Lato', sans-serif;
+    color: #4141a5;
+`
+
+export const StyledNumberNavComponent = styled.div`
+    background: #302952;
+    color: #f3a01f;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: ${props => props.answered ? "5px solid #f3a01f" : ""};
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+`
  

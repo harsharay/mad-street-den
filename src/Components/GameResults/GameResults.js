@@ -1,9 +1,11 @@
 import React,{ useState, useEffect } from "react"
-import { StyledButton, StyledHeader, StyledSelectComponent } from "../../StyledComponents"
+import { connect } from "react-redux"
+import { Redirect } from "react-router-dom"
+import { StyledButton, StyledHeader, StyledLoginMessage, StyledSelectComponent } from "../../StyledComponents"
 
 import "./GameResults.css"
 
-const GameResults = () => {
+const GameResults = (props) => {
 
     const [allUserResults, setAllUserResults] = useState([])
     const [selectUsers, setSelectUsers] = useState({
@@ -13,6 +15,17 @@ const GameResults = () => {
     const [firstUserData, setFirstUserData] = useState({})
     const [secondUserData, setSecondUserData] = useState({})
     const [compatibilityScore, setCompatibilityScore] = useState(0)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+    useEffect(() => {
+        let loginCheck = props.username || localStorage.getItem("username")
+
+        if(loginCheck) {
+            setIsLoggedIn(true)
+        } else {
+            setIsLoggedIn(false)
+        }
+    },[props])
 
     useEffect(() => {
         if(localStorage.getItem("allUsersGameResults")) {
@@ -86,10 +99,13 @@ const GameResults = () => {
     useEffect(() => calculateCompatibilty(),[firstUserData])
 
     return (
-        <div>
-            <StyledHeader>Compare the results</StyledHeader>
-            <div className="results-block">
-                { allUserResults.length > 0 ?  
+        !isLoggedIn ?
+            <StyledLoginMessage>Please login</StyledLoginMessage>
+        :
+            <div>
+                <StyledHeader>Compare the results</StyledHeader>
+                <div className="results-block">
+                    { allUserResults.length > 0 ?  
                         <>
                             <div className="results-content">
                                 <StyledSelectComponent onChange={handleDropdownChange} name="firstUser" value={selectUsers.firstUser}>
@@ -159,4 +175,10 @@ const GameResults = () => {
     )
 }
 
-export default GameResults
+const mapStateToProps = state => {
+    return {
+        usernameProp: state.username
+    }
+}
+
+export default connect(mapStateToProps, null)(GameResults)

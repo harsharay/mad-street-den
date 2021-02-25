@@ -27,7 +27,7 @@
 
 .game-button-group {
     margin-top: 10%;
-    margin-left: 3rem;
+    margin-left: 0.1rem;
     /* border: 2px solid red; */
     width: 35rem;
     display: flex;
@@ -47,10 +47,21 @@
     width: 15rem;
 }
 
+.allQuestionNumbers {
+    /* border: 2px solid red; */
+    width: 50rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    margin-top: 3rem;
+    margin-left: 1rem;
+}
+
 .finishGame-button {
-    position: fixed;
-    bottom: 15%;
-    right: 20%;
+    position: relative;
+    bottom: 145px;
+    left: 650px;
     color: black !important;
     background-color: white !important;
     border: 2px solid #f3a01f !important;
