@@ -22,6 +22,12 @@
     margin-left: 2%;
 }
 
+.password-alert {
+    position: absolute;
+    right: 28rem;
+    top: 27.5rem;
+}
+
 .signup-content button {
     margin: 5% -2% 5% 0;
 }

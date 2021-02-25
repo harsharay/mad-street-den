@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { StyledButton, StyledInput, StyledHeader } from "../../StyledComponents"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { HiChevronDoubleRight } from "react-icons/hi"
+import { FcInfo } from "react-icons/fc"
 
 import "./Signup.css"
 import { Link } from "react-router-dom";
@@ -44,7 +44,7 @@ const Signup = (props) => {
     const handleSignup = () => {
         let { username, password, repeatPassword } = inputData
 
-        if(username.length > 0 && password.length > 0) {
+        if(username.length > 0 && password.length >=5) {
             if(repeatPassword !== password) {
                 toast.error("Passwords did not match",{
                     autoClose: 3000
@@ -78,6 +78,10 @@ const Signup = (props) => {
                     props.history.push("/")
                 }
             }
+        } else if(password.length <5) {
+            toast.error("Password should be min of 5 character length",{
+                autoClose: 3000
+            })
         }
     }
 
@@ -92,6 +96,9 @@ const Signup = (props) => {
                 <div className="signup-singleDiv">
                     <p>Enter password</p>
                     <StyledInput type="password" onChange={handleInputChange} name="password" value={inputData.password}/>
+                </div>
+                <div className="password-alert-block">
+                    <p className="password-alert"><FcInfo />Password should be min of 5 characters length</p>
                 </div>
                 <div className="signup-singleDiv">
                     <p>Enter password, again</p>
